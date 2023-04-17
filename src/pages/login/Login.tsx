@@ -5,10 +5,21 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {PATH} from "../../routes/RoutesComponent";
 import {Error} from "../../common/components/Error/Error";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 import {loginTC, registrationTC} from "../../store/authReducer";
+import {useForm, SubmitHandler, Controller} from "react-hook-form";
+import {TextInput} from "../../common/components/TextInput/TextInput";
+import {getValidErrorMessage} from "../../common/utils/get-valid-form-error";
+import TextField from "@mui/material/TextField";
+import {PasswordInput} from "../../common/components/PasswordInput/PasswordInput";
 
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+type FormData = {
+    email: string;
+    password: string;
+};
 
 export const Login = () => {
 
@@ -18,84 +29,79 @@ export const Login = () => {
     const isAuth = useAppSelector(state => state.auth.isAuth)
     const authError = useAppSelector(state => state.auth.authError)
 
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [rememberMe, setRememberMe] = useState<boolean>(false)
-    const [formError, setFormError] = useState<string>('')
-
-    const loginHandleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (email && password) {
-            if (!formError) {
-                dispatch(loginTC(email, password, rememberMe))
-            }
-        } else {
-            setFormError("Пожалуйста, заполните все поля формы.")
-        }
-    }
-
     useEffect(() => {
         if (isAuth) {
             navigate(PATH.PROFILE);
         }
     }, [isAuth])
 
-    //VALIDATION
-    const validate: React.FocusEventHandler<HTMLInputElement> = (e) => {
-
-        let validateError: string = ''
-
-        //EMAIL
-        if (email) {
-            if (!emailRegex.test(email)) {
-                validateError = "Пожалуйста, введите корректный адрес электронной почты."
-            }
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: {
+            errors: {email, password},
+        },
+    } = useForm<FormData>({
+            mode: "onBlur",
         }
+    );
 
-        //PASSWORD
-        if (password) {
-            if (password.length < 4) {
-                validateError = "Пароль должен содержать не менее 4 символов."
-            }
-        }
-
-        if (validateError !== formError) {
-            setFormError(validateError)
-        }
-    }
+    // const {handleSubmit, control, formState: {errors}} = useForm<IFormInputs>({
+    //     mode: "onBlur",
+    //     defaultValues: {
+    //         checkbox: false
+    //     }
+    // });
+    const onSubmit: SubmitHandler<FormData> = data => console.log(data);
 
     return <div className={s.login}>
         <h2>Sign In</h2>
-        <form onSubmit={loginHandleSubmit}>
-            <FormInput
-                type={'email'}
-                id={'email'}
-                text={'Email'}
-                value={email}
-                onChange={(e) => {
-                    setEmail(e.currentTarget.value)
-                }}
-                onBlur={validate}
-            />
-            <FormInput
-                type={'password'}
-                id={'pass'}
-                text={'Password'}
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.currentTarget.value)
-                }}
-                onBlur={validate}
-            />
-            {formError && <div className={s.login_error}>{formError}</div>}
-            <FormGroup>
-                <FormControlLabel control={<Checkbox/>} label="Remember me"/>
-            </FormGroup>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div className={s.registration_input}>
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                        required: true,
+                        pattern: emailRegex,
+                    }}
+                    render={({field}) =>
+                        <TextField
+                            {...field}
+                            label="Email"
+                            variant="standard"
+
+                            error={!!email}
+                            helperText={getValidErrorMessage(email?.type)}
+                        />}
+                />
+            </div>
+
+            <div className={s.registration_input}>
+                <Controller
+                    name="password"
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 7,
+                    }}
+                    render={({field}) =>
+                        <PasswordInput
+                            {...field}
+                            labelTitle="Password"
+                            variant="standard"
+                            helperText={getValidErrorMessage(password?.type)}
+                        />}
+                />
+            </div>
 
             <NavLink to={PATH.FORGOT_PASSWORD}>Forgot Password?</NavLink>
-            <button className={s.login_button} type={'submit'}>
-                Sign In
-            </button>
+
+            <input className={s.login_button} type="submit"/>
+
         </form>
         <p className={s.login_haveAccount}>Don't have an account?</p>
         <p className={s.login_loginReference}>
