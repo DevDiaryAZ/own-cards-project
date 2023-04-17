@@ -6,7 +6,17 @@ import {PATH} from "../../routes/RoutesComponent";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {registrationTC} from "../../store/authReducer";
 import {Error} from "../../common/components/Error/Error";
+import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import TextField from "@mui/material/TextField";
+import {getValidErrorMessage} from "../../common/utils/get-valid-form-error";
+import {emailRegex} from "../login/Login";
+import {PasswordInput} from "../../common/components/PasswordInput/PasswordInput";
 
+type FormData = {
+    email: string
+    password: string
+    confirmPassword: string
+};
 
 export const Registration = () => {
 
@@ -17,58 +27,34 @@ export const Registration = () => {
     const isRegistered = useAppSelector(state => state.auth.isRegistered)
     const authError = useAppSelector(state => state.auth.authError)
 
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [confirmPassword, setConfirmPassword] = useState<string>('')
-    const [formError, setFormError] = useState<string>('')
+    // const [email, setEmail] = useState<string>('')
+    // const [password, setPassword] = useState<string>('')
+    // const [confirmPassword, setConfirmPassword] = useState<string>('')
+    // const [formError, setFormError] = useState<string>('')
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const registrationHandleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    //     event.preventDefault();
+    //     if (email && password && confirmPassword) {
+    //         if (!formError) {
+    //             dispatch(registrationTC(email, password))
+    //         }
+    //     } else {
+    //         setFormError("Пожалуйста, заполните все поля формы.")
+    //     }
+    // }
 
-    const registrationHandleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (email && password && confirmPassword) {
-            if (!formError) {
-                dispatch(registrationTC(email, password))
-            }
-        } else {
-            setFormError("Пожалуйста, заполните все поля формы.")
+    const {
+        handleSubmit,
+        control,
+        formState: {
+            errors: {email, password, confirmPassword},
+        },
+    } = useForm<FormData>({
+            mode: "onBlur",
         }
-    }
+    );
 
-    //VALIDATION
-    const validate: React.FocusEventHandler<HTMLInputElement> = (e) => {
-
-        let validateError: string = ''
-
-        //EMAIL
-        if (email) {
-            if (!emailRegex.test(email)) {
-                validateError = "Пожалуйста, введите корректный адрес электронной почты."
-            }
-        }
-
-        //PASSWORD
-        if (password) {
-            if (password.length < 4) {
-                validateError = "Пароль должен содержать не менее 4 символов."
-            }
-        }
-
-        //CONFIRM PASSWORD
-        if (confirmPassword) {
-            if (confirmPassword.length > 3) {
-                if (password !== confirmPassword) {
-                    validateError = "Пожалуйста, убедитесь, что поле пароля и поле подтверждения пароля содержат одинаковые значения."
-                }
-            } else {
-                validateError = "Пароль должен содержать не менее 4 символов."
-            }
-        }
-
-        if (validateError !== formError) {
-            setFormError(validateError)
-        }
-    }
+    const onSubmit: SubmitHandler<FormData> = data => console.log(data);
 
     useEffect(() => {
         if (isRegistered) {
@@ -78,41 +64,64 @@ export const Registration = () => {
 
     return <div className={s.registration}>
         <h2>Sign Up</h2>
-        <form onSubmit={registrationHandleSubmit}>
-            <FormInput
-                type={'email'}
-                id={'email'}
-                text={'Email'}
-                value={email}
-                onChange={(e) => {
-                    setEmail(e.currentTarget.value)
-                }}
-                onBlur={validate}
-            />
-            <FormInput
-                type={'password'}
-                id={'pass'}
-                text={'Password'}
-                value={password}
-                onChange={(e) => {
-                    setPassword(e.currentTarget.value)
-                }}
-                onBlur={validate}
-            />
-            <FormInput
-                type={'password'}
-                id={'confirm-pass'}
-                text={'Confirm password'}
-                value={confirmPassword}
-                onChange={(e) => {
-                    setConfirmPassword(e.currentTarget.value)
-                }}
-                onBlur={validate}
-            />
-            {formError && <div className={s.registration_error}>{formError}</div>}
-            < button className={s.registration_button} type={'submit'}>
-                Sign Up
-            </button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={s.registration_input}>
+                <Controller
+                    name="email"
+                    control={control}
+                    rules={{
+                        required: true,
+                        pattern: emailRegex,
+                    }}
+                    render={({field}) =>
+                        <TextField
+                            {...field}
+                            label="Email"
+                            variant="standard"
+                            error={!!email}
+                            helperText={getValidErrorMessage(email?.type)}
+                            sx={{
+                                width: '100%'
+                            }}
+                        />}
+                />
+            </div>
+            <div className={s.registration_input}>
+                <Controller
+                    name="password"
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 7,
+                    }}
+                    render={({field}) =>
+                        <PasswordInput
+                            {...field}
+                            labelTitle="Password"
+                            variant="standard"
+                            helperText={getValidErrorMessage(password?.type)}
+                        />}
+                />
+            </div>
+            <div className={s.registration_input}>
+                <Controller
+                    name="confirmPassword"
+                    control={control}
+                    rules={{
+                        required: true,
+                        minLength: 7,
+                    }}
+                    render={({field}) =>
+                        <PasswordInput
+                            {...field}
+                            labelTitle="Confirm password"
+                            variant="standard"
+                            helperText={getValidErrorMessage(confirmPassword?.type)}
+                        />}
+                />
+            </div>
+
+            <input className={s.login_button} type="submit" value={"Sign Up"}/>
         </form>
         <p className={s.registration_haveAccount}>Already have an account?</p>
         <p className={s.registration_loginReference}>

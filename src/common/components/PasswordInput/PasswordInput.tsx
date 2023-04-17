@@ -22,30 +22,32 @@ export const PasswordInput = (props: PropsType) => {
             <TextField
                 label={props.labelTitle}
                 variant={props.variant}
-
                 error={!!props.helperText}
                 helperText={props.helperText}
                 onBlur={props.onBlur}
                 onChange={props.onChange}
                 type={isHidden ? "password" : "text"}
+                sx={{
+                        width: '100%'
+                }}
             />
 
             {/* eye logic*/}
             {(isHidden ? (
-                    <img
-                        className={s.registration_eye}
-                        src={passwordEye}
-                        onClick={imgOnClickHandler}
-                        alt={'passwordEye'}
-                    />
-                ) : (
-                    <img
-                        className={s.registration_eye}
-                        src={passwordEyeHide}
-                        onClick={imgOnClickHandler}
-                        alt={'passwordEyeHide'}
-                    />
-                ))}
+                <img
+                    className={s.registration_eye}
+                    src={passwordEye}
+                    onClick={imgOnClickHandler}
+                    alt={'passwordEye'}
+                />
+            ) : (
+                <img
+                    className={s.registration_eye}
+                    src={passwordEyeHide}
+                    onClick={imgOnClickHandler}
+                    alt={'passwordEyeHide'}
+                />
+            ))}
         </div>
     )
 }

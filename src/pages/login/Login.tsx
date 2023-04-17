@@ -1,24 +1,22 @@
-import React, {FormEvent, useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import s from "./Login.module.css";
-import {FormInput} from "../../common/components/FormInput/FormInput";
 import {NavLink, useNavigate} from "react-router-dom";
 import {PATH} from "../../routes/RoutesComponent";
 import {Error} from "../../common/components/Error/Error";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {Button, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
-import {loginTC, registrationTC} from "../../store/authReducer";
 import {useForm, SubmitHandler, Controller} from "react-hook-form";
-import {TextInput} from "../../common/components/TextInput/TextInput";
 import {getValidErrorMessage} from "../../common/utils/get-valid-form-error";
 import TextField from "@mui/material/TextField";
 import {PasswordInput} from "../../common/components/PasswordInput/PasswordInput";
+import {loginTC} from "../../store/authReducer";
+import {Checkbox, FormControlLabel} from "@mui/material";
 
-// export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+export const emailRegex = /^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i;
 
 type FormData = {
-    email: string;
-    password: string;
+    email: string
+    password: string
+    isRememberMe: boolean
 };
 
 export const Login = () => {
@@ -36,7 +34,6 @@ export const Login = () => {
     }, [isAuth])
 
     const {
-        register,
         handleSubmit,
         control,
         formState: {
@@ -44,16 +41,14 @@ export const Login = () => {
         },
     } = useForm<FormData>({
             mode: "onBlur",
+            defaultValues: {
+                isRememberMe: false
+            }
         }
     );
 
-    // const {handleSubmit, control, formState: {errors}} = useForm<IFormInputs>({
-    //     mode: "onBlur",
-    //     defaultValues: {
-    //         checkbox: false
-    //     }
-    // });
-    const onSubmit: SubmitHandler<FormData> = data => console.log(data);
+    const onSubmit: SubmitHandler<FormData> = data => dispatch(loginTC(data.email, data.password, data.isRememberMe));
+    // const onSubmit: SubmitHandler<FormData> = data => console.log(data);
 
     return <div className={s.login}>
         <h2>Sign In</h2>
@@ -73,9 +68,11 @@ export const Login = () => {
                             {...field}
                             label="Email"
                             variant="standard"
-
                             error={!!email}
                             helperText={getValidErrorMessage(email?.type)}
+                            sx={{
+                                width: '100%'
+                            }}
                         />}
                 />
             </div>
@@ -95,6 +92,17 @@ export const Login = () => {
                             variant="standard"
                             helperText={getValidErrorMessage(password?.type)}
                         />}
+                />
+            </div>
+
+            <div className={s.registration_input}>
+                <Controller
+                    name="isRememberMe"
+                    control={control}
+                    render={({field}) =>
+                        <FormControlLabel control={<Checkbox {...field} />} label="Remember me"/>
+                        // <Checkbox {...field} defaultChecked/>
+                    }
                 />
             </div>
 
