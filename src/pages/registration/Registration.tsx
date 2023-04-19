@@ -1,4 +1,4 @@
-import React, {FormEvent, MouseEventHandler, useEffect, useState} from "react";
+import React, {FormEvent, MouseEventHandler, PropsWithChildren, useEffect, useState} from "react";
 import {FormInput} from "../../common/components/FormInput/FormInput";
 import s from "./Registration.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
@@ -21,31 +21,16 @@ type FormData = {
 export const Registration = () => {
 
     const dispatch = useAppDispatch()
-
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const isRegistered = useAppSelector(state => state.auth.isRegistered)
     const authError = useAppSelector(state => state.auth.authError)
 
-    // const [email, setEmail] = useState<string>('')
-    // const [password, setPassword] = useState<string>('')
-    // const [confirmPassword, setConfirmPassword] = useState<string>('')
-    // const [formError, setFormError] = useState<string>('')
-
-    // const registrationHandleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //     if (email && password && confirmPassword) {
-    //         if (!formError) {
-    //             dispatch(registrationTC(email, password))
-    //         }
-    //     } else {
-    //         setFormError("Пожалуйста, заполните все поля формы.")
-    //     }
-    // }
-
     const {
         handleSubmit,
         control,
+        register,
+        getValues,
         formState: {
             errors: {email, password, confirmPassword},
         },
@@ -54,7 +39,7 @@ export const Registration = () => {
         }
     );
 
-    const onSubmit: SubmitHandler<FormData> = data => console.log(data);
+    const onSubmit: SubmitHandler<FormData> = data =>    dispatch(registrationTC(data.email, data.password));
 
     useEffect(() => {
         if (isRegistered) {
@@ -66,60 +51,50 @@ export const Registration = () => {
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.registration_input}>
-                <Controller
-                    name="email"
-                    control={control}
-                    rules={{
-                        required: true,
-                        pattern: emailRegex,
+                <TextField
+                    {...register('email', {required: true, pattern: emailRegex})}
+                    label="Email"
+                    variant="standard"
+                    error={!!email}
+                    helperText={getValidErrorMessage(email?.type)}
+                    sx={{
+                        width: '100%'
                     }}
-                    render={({field}) =>
-                        <TextField
-                            {...field}
-                            label="Email"
-                            variant="standard"
-                            error={!!email}
-                            helperText={getValidErrorMessage(email?.type)}
-                            sx={{
-                                width: '100%'
-                            }}
-                        />}
                 />
             </div>
-            <div className={s.registration_input}>
-                <Controller
-                    name="password"
-                    control={control}
-                    rules={{
-                        required: true,
-                        minLength: 7,
-                    }}
-                    render={({field}) =>
-                        <PasswordInput
-                            {...field}
-                            labelTitle="Password"
-                            variant="standard"
-                            helperText={getValidErrorMessage(password?.type)}
-                        />}
-                />
-            </div>
-            <div className={s.registration_input}>
-                <Controller
-                    name="confirmPassword"
-                    control={control}
-                    rules={{
-                        required: true,
-                        minLength: 7,
-                    }}
-                    render={({field}) =>
-                        <PasswordInput
-                            {...field}
-                            labelTitle="Confirm password"
-                            variant="standard"
-                            helperText={getValidErrorMessage(confirmPassword?.type)}
-                        />}
-                />
-            </div>
+
+            <Controller
+                name="password"
+                control={control}
+                rules={{
+                    required: true,
+                    minLength: 7,
+                }}
+                render={({field}) =>
+                    <PasswordInput
+                        {...field}
+                        labelTitle="Password"
+                        variant="standard"
+                        helperText={getValidErrorMessage(password?.type)}
+                    />}
+            />
+
+            <Controller
+                name="confirmPassword"
+                control={control}
+                rules={{
+                    required: true,
+                    minLength: 7,
+                    validate: value => value === getValues('password'),
+                }}
+                render={({field}) =>
+                    <PasswordInput
+                        {...field}
+                        labelTitle="Confirm password"
+                        variant="standard"
+                        helperText={getValidErrorMessage(confirmPassword?.type)}
+                    />}
+            />
 
             <input className={s.login_button} type="submit" value={"Sign Up"}/>
         </form>

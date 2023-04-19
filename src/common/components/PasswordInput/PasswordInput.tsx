@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {forwardRef, ReactElement, useState} from 'react'
 import s from './PasswordInput.module.css'
 import passwordEye from '../../assets/pictures/eye.svg'
 import passwordEyeHide from '../../assets/pictures/eye-off.svg'
@@ -10,7 +10,7 @@ type PropsType = StandardTextFieldProps & {
     // onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const PasswordInput = (props: PropsType) => {
+export const PasswordInput = forwardRef(({...props}: PropsType, ref) => {
     const [isHidden, setIsHidden] = useState<boolean>(true)
 
     const imgOnClickHandler = () => {
@@ -20,6 +20,7 @@ export const PasswordInput = (props: PropsType) => {
     return (
         <div className={s.registration_input}>
             <TextField
+                ref={props.ref}
                 label={props.labelTitle}
                 variant={props.variant}
                 error={!!props.helperText}
@@ -28,7 +29,7 @@ export const PasswordInput = (props: PropsType) => {
                 onChange={props.onChange}
                 type={isHidden ? "password" : "text"}
                 sx={{
-                        width: '100%'
+                    width: '100%'
                 }}
             />
 
@@ -50,4 +51,4 @@ export const PasswordInput = (props: PropsType) => {
             ))}
         </div>
     )
-}
+})
