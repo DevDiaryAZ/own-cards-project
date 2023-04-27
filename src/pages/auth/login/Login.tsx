@@ -1,15 +1,16 @@
 import React, {useEffect} from "react";
 import s from "./Login.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
-import {PATH} from "../../routes/RoutesComponent";
-import {Error} from "../../common/components/Error/Error";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {PATH} from "routes/RoutesComponent";
+import {Error} from "common/components/Error/Error";
+import {useAppDispatch, useAppSelector} from "hooks/hooks";
 import {useForm, SubmitHandler, Controller} from "react-hook-form";
-import {getValidErrorMessage} from "../../common/utils/get-valid-form-error";
+import {getValidErrorMessage} from "common/utils/get-valid-form-error";
 import TextField from "@mui/material/TextField";
-import {PasswordInput} from "../../common/components/PasswordInput/PasswordInput";
-import {loginTC} from "../../store/authReducer";
+import {PasswordInput} from "common/components/PasswordInput/PasswordInput";
+import {loginTC} from "store/authReducer";
 import {Checkbox, FormControlLabel} from "@mui/material";
+import {selectAuthError, selectIsAuth} from "store/selectors/selectAuth";
 
 export const emailRegex = /^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i;
 
@@ -22,16 +23,18 @@ type FormData = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
-    const isAuth = useAppSelector(state => state.auth.isAuth)
-    const authError = useAppSelector(state => state.auth.authError)
+    const authError = useAppSelector(selectAuthError)
+    const isAuth = useAppSelector(selectIsAuth)
 
-    useEffect(() => {
-        if (isAuth) {
-            navigate(PATH.PROFILE);
-        }
-    }, [isAuth])
+    // useEffect(() => {
+    //     debugger;
+    //     console.log('login useeffect')
+    //     if (isAuth) {
+    //         navigate(PATH.PACKS);
+    //     }
+    // }, [isAuth, navigate])
 
     const {
         handleSubmit,

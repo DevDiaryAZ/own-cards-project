@@ -1,0 +1,6 @@
+.tableCellName {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}

@@ -1,16 +1,16 @@
-import React, {FormEvent, MouseEventHandler, PropsWithChildren, useEffect, useState} from "react";
-import {FormInput} from "../../common/components/FormInput/FormInput";
+import React, {useEffect} from "react";
 import s from "./Registration.module.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import {PATH} from "../../routes/RoutesComponent";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {registrationTC} from "../../store/authReducer";
-import {Error} from "../../common/components/Error/Error";
+import {PATH} from "routes/RoutesComponent";
+import {useAppDispatch, useAppSelector} from "hooks/hooks";
+import {registrationTC} from "store/authReducer";
+import {Error} from "common/components/Error/Error";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import {getValidErrorMessage} from "../../common/utils/get-valid-form-error";
+import {getValidErrorMessage} from "common/utils/get-valid-form-error";
 import {emailRegex} from "../login/Login";
-import {PasswordInput} from "../../common/components/PasswordInput/PasswordInput";
+import {PasswordInput} from "common/components/PasswordInput/PasswordInput";
+import {selectAuthError, selectIsRegistered} from "store/selectors/selectAuth";
 
 type FormData = {
     email: string
@@ -23,8 +23,8 @@ export const Registration = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const isRegistered = useAppSelector(state => state.auth.isRegistered)
-    const authError = useAppSelector(state => state.auth.authError)
+    const isRegistered = useAppSelector(selectIsRegistered)
+    const authError = useAppSelector(selectAuthError)
 
     const {
         handleSubmit,
@@ -39,13 +39,14 @@ export const Registration = () => {
         }
     );
 
-    const onSubmit: SubmitHandler<FormData> = data =>    dispatch(registrationTC(data.email, data.password));
+    const onSubmit: SubmitHandler<FormData> = data => dispatch(registrationTC(data.email, data.password));
 
-    useEffect(() => {
-        if (isRegistered) {
-            navigate(PATH.LOGIN);
-        }
-    }, [isRegistered])
+    // useEffect(() => {
+    //     console.log('registrat useeffect')
+    //     if (isRegistered) {
+    //         navigate(PATH.LOGIN);
+    //     }
+    // }, [isRegistered])
 
     return <div className={s.registration}>
         <h2>Sign Up</h2>

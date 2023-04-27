@@ -1,4 +1,4 @@
-import {TResponseAuthData} from "../api/responseTypes";
+import {TResponseAuthData} from "types/types";
 import {AppThunk} from "./store";
 import {authAPI} from "../api/authAPI";
 import {handleError} from "../common/utils/error-utils";

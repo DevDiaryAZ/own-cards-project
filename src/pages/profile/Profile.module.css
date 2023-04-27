@@ -60,7 +60,7 @@
 
 .profileButton:before {
     content: '';
-    background-image: url("./../../common/assets/pictures/logout.svg");
+    background-image: url("../../common/assets/pictures/logout.svg");
     width: 16px;
     height: 16px;
     background-repeat: no-repeat;
@@ -93,7 +93,7 @@
 
 .profile_backbutton:before {
     content: '';
-    background-image: url("./../../common/assets/pictures/arrow.svg");
+    background-image: url("../../common/assets/pictures/arrow.svg");
     width: 14px;
     height: 11px;
     background-repeat: no-repeat;

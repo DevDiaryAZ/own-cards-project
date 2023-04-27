@@ -2,10 +2,10 @@ import React from 'react'
 
 import s from './SentEmail.module.css'
 
-import checkEmailImg from "../../../../common/assets/pictures/check-email.svg"
-import {PATH} from "../../../../routes/RoutesComponent";
+import checkEmailImg from "../../../../../common/assets/pictures/check-email.svg"
+import {PATH} from "../../../../../routes/RoutesComponent";
 import {useNavigate} from "react-router-dom";
-import {useAppSelector} from "../../../../hooks/hooks";
+import {useAppSelector} from "../../../../../hooks/hooks";
 
 export const SentEmail = () => {
 

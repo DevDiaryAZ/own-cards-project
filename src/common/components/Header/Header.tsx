@@ -11,6 +11,10 @@ export const Header = () => {
             to={PATH.REGISTRATION}>
             Registration
         </NavLink>
+        <NavLink
+            to={PATH.PROFILE}>
+            Profile
+        </NavLink>
         {/*<Button*/}
         {/*    name={'Sign In'}*/}
         {/*    callBack={() => {*/}

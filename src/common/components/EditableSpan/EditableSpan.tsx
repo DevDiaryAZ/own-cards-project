@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, KeyboardEvent, memo } from 'react'
 import TextField from '@mui/material/TextField'
 import editIcon from './../../assets/pictures/edit.svg'
-import s from './../../../pages/profile/Profile.module.css'
+import s from '../../../pages/profile/Profile.module.css'
 
 type EditableSpanPropsType = {
     value: string

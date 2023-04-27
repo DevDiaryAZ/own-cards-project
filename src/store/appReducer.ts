@@ -12,7 +12,7 @@ const initialState = {
 export const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
         case "SET_LOADER" :
-        return {...state, isLoader: action.payload.isLoader}
+            return {...state, isLoader: action.payload.isLoader}
         default:
             return state
     }
@@ -24,7 +24,7 @@ export const setLoaderAC = (isLoader: boolean) => {
         type: "SET_LOADER",
         payload: {
             isLoader
-        }
+        } as const
     }
 }
 

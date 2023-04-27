@@ -1,6 +1,6 @@
 import {instance} from "./instance";
 import axios, {AxiosResponse} from "axios";
-import {TResponseAuthData} from "./responseTypes";
+import {TResponseAuthData} from "types/types";
 import {forgotTC} from "../store/authReducer";
 
 // AUTH API
