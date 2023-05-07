@@ -29,7 +29,7 @@ export const packsAPI = {
     },
 
     // cards
-    getCards(data?: TGetCardsData) {
+    getCards(data: TGetCardsData) {
         return instance.get<{}, AxiosResponse<TResponseCardsData>>('/cards/card', {params: data}).then(res => res.data)
     },
     addNewCard(data: TAddNewCardData) {

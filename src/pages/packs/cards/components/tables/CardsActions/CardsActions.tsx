@@ -1,24 +1,20 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps, MouseEventHandler} from 'react';
 import editImg from 'common/assets/pictures/edit.svg'
 import deleteImg from 'common/assets/pictures/delete.svg'
-import teachImg from 'common/assets/pictures/teacher.svg'
-import {deletePackTC, updatePackTC} from "store/packsReducer";
 import {useAppDispatch} from "hooks/hooks";
 import {deleteCardTC, updateCardTC} from "store/cardsReducer";
-import {useParams} from "react-router-dom";
 
 type PropsType = {
     cardId: string
+    cardUserId: string
 }
 
-export const CardsActions = ({cardId}: PropsType) => {
+export const CardsActions = ({cardId, cardUserId}: PropsType) => {
 
     const dispatch = useAppDispatch()
 
-    const packId = useParams().packId
-
     const deleteCard = () => {
         dispatch(deleteCardTC(cardId))
+
     }
 
     const updateCard = () => {
@@ -40,7 +36,7 @@ export const CardsActions = ({cardId}: PropsType) => {
                 <img src={editImg} alt={"edit"}/>
             </button>
             <button onClick={deleteCard}>
-                <img src={deleteImg} alt={"delete"} />
+                <img src={deleteImg} alt={"delete"}/>
             </button>
         </>
     );

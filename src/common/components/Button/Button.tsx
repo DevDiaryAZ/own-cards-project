@@ -1,20 +1,45 @@
-import React from 'react'
-import styles from './Button.module.css'
+import React, { DetailedHTMLProps, FC } from "react";
+import { SButton } from "./styles";
 
-type ButtonPropsType = {
-    name: string
-    callBack: () => void
-}
-export const Button = ({ name, callBack }: ButtonPropsType) => {
-    const onClickHandler = () => {
-        callBack()
-    }
+export type TDefaultHTMLButton = DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+    >;
 
+type TButtonProps = TDefaultHTMLButton & {
+    label: string
+    isDisabled?: boolean
+    backgroundColor?: string
+    size?: "lg" | "sm"
+    isLoading?: boolean
+    icon?: React.ReactElement
+    needAuth?: boolean
+    withShadow?: boolean
+    withBorder?: boolean
+    severity?: "success" | "neutral"
+    isNoActive?: boolean
+};
+
+export const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
+    const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        props.onClick && props.onClick(e);
+    };
     return (
-        <div>
-            <button onClick={onClickHandler} type={'button'} className={styles.btn}>
-                {name}
-            </button>
-        </div>
-    )
-}
+        <SButton
+            type={props.type}
+            hasIcon={!!props.icon}
+            disabled={isDisabled}
+            onClick={(e) => onClickHandler(e)}
+            backgroundColor={props.backgroundColor}
+            size={props.size}
+            isLoading={props.isLoading}
+            withShadow={props.withShadow}
+            withBorder={props.withBorder}
+            severity={props.severity}
+            isNoActive={props.isNoActive}
+        >
+            {props.icon}
+            {props.label}
+        </SButton>
+    );
+};

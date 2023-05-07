@@ -20,7 +20,7 @@ export const PATH = {
     FORGOT_PASSWORD: "/forgot-password",
     SET_NEW_PASSWORD: "/set-new-password/:setNewPasswordToken?",
     PACKS: "/packs",
-    CARDS: "/cards/:packId?/",
+    CARDS: "/cards/:isMyPack?/:packId?/:packName?",
 }
 
 //routes

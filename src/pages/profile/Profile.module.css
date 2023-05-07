@@ -4,6 +4,7 @@
     margin: auto;
 }
 
+
 .profile_wrapper {
     width: 413px;
     height: auto;
@@ -14,6 +15,41 @@
     padding: 27px 87px 36px;
     box-sizing: border-box;
     text-align: center;
+}
+
+.avatarWrapper{
+    position: relative;
+    width: fit-content;
+    margin: auto;
+}
+
+.avatarWrapper > img{
+    width: 96px;
+}
+
+.avatarEditButton{
+    border: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+.avatarEditButton:hover{
+   opacity: 0.9;
+}
+
+.buttonContainer{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.editAvatarContainer{
+    margin: 10px 0;
 }
 
 .profile_container h2 {

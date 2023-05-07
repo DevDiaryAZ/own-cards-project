@@ -8,3 +8,5 @@ export const selectCardPacksTotalCount = (state: AppRootStateType): number => st
 export const selectMaxCardsCount = (state: AppRootStateType): number => state.packs.maxCardsCount
 export const selectMinCardsCount = (state: AppRootStateType): number => state.packs.minCardsCount
 export const selectIsShowMyPacks = (state: AppRootStateType): boolean => state.packs.isShowMyPacks
+export const selectSortPacks = (state: AppRootStateType): string => state.packs.sortPacks
+export const selectRerenderPacksFlag = (state: AppRootStateType): Array<string> => state.packs.rerenderPacksFlag

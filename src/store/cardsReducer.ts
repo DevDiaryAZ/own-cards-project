@@ -16,8 +16,12 @@ import {setPacksAC} from "store/packsReducer";
 
 //TYPES
 type InitialStateType = typeof initialState
-export type CardsActionType = SetCardsACType
+export type CardsActionType = ResetCardsACACType| SetIsUsedCardsFilterACType | SetCardsACType | SetSortCardsACType | RerenderCardsACType
 type SetCardsACType = ReturnType<typeof setCardsAC>
+type SetSortCardsACType = ReturnType<typeof setSortCardsAC>
+type SetIsUsedCardsFilterACType = ReturnType<typeof setIsUsedCardsFilterAC>
+type ResetCardsACACType = ReturnType<typeof resetCardsAC>
+type RerenderCardsACType = ReturnType<typeof rerenderCardsAC>
 
 //INITIAL STATE
 const initialState = {
@@ -28,6 +32,11 @@ const initialState = {
     page: 0,
     pageCount: 8,
     packUserId: '',
+
+    sortCards: '0grade',
+
+    isUsedCardsFilter: false,
+    rerenderFlag: ['rerender'],
 }
 
 //PACKS REDUCER
@@ -43,11 +52,38 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
                 page: action.payload.data.page,
                 pageCount: action.payload.data.pageCount,
                 packUserId: action.payload.data.packUserId,
-
+            }
+        case "RESET_CARDS":
+            return {
+                ...state,
+                cards: [],
+                cardsTotalCount: 0,
+                maxGrade: 0,
+                minGrade: 0,
+                page: 0,
+                pageCount: 8,
+                packUserId: '',
+                sortCards: '0grade',
+                isUsedCardsFilter: false,
+            }
+        case "SET_SORT_CARDS":
+            return {
+                ...state,
+                sortCards: action.payload.sortCards,
+            }
+        case "SET_IS_USED_CARDS_FILTER":
+            return {
+                ...state,
+                isUsedCardsFilter: action.payload.isUsedCardsFilter,
+            }
+        case "RERENDER_CARDS":
+            return {
+                ...state,
+                rerenderFlag: {...state.rerenderFlag}
+            }
+        default:
+            return state
     }
-default:
-    return state
-}
 }
 
 //ACTION CREATORS
@@ -60,12 +96,48 @@ export const setCardsAC = (data: TResponseCardsData) => {
     } as const
 }
 
+export const setSortCardsAC = (sortCards: string) => {
+    return {
+        type: "SET_SORT_CARDS",
+        payload: {
+            sortCards
+        }
+    } as const
+}
+
+export const setIsUsedCardsFilterAC = (isUsedCardsFilter: boolean) => {
+    return {
+        type: "SET_IS_USED_CARDS_FILTER",
+        payload: {
+            isUsedCardsFilter
+        }
+    } as const
+}
+
+export const resetCardsAC = () => {
+    return {
+        type: "RESET_CARDS",
+    } as const
+}
+
+
+export const rerenderCardsAC = () => {
+    return {
+        type: "RERENDER_CARDS",
+    } as const
+}
+
 //THUNK CREATORS
 export const getCardsTC = (params: TGetCardsData): AppThunk => async dispatch => {
     dispatch(setLoaderAC(true))
     try {
         const res = await packsAPI.getCards(params)
         dispatch(setCardsAC(res))
+        if (params.cardQuestion) {
+            dispatch(setIsUsedCardsFilterAC(true))
+        } else {
+            dispatch(setIsUsedCardsFilterAC(false))
+        }
     } catch (e) {
         handleError(e, dispatch)
     } finally {
@@ -77,8 +149,7 @@ export const addNewCardTC = (data: TAddNewCardData): AppThunk => async dispatch 
     dispatch(setLoaderAC(true))
     try {
         await packsAPI.addNewCard(data)
-        const res = await packsAPI.getCards()
-        dispatch(setCardsAC(res))
+        dispatch(rerenderCardsAC())
     } catch (e) {
         handleError(e, dispatch)
     } finally {
@@ -90,8 +161,7 @@ export const deleteCardTC = (cardId: string): AppThunk => async dispatch => {
     dispatch(setLoaderAC(true))
     try {
         await packsAPI.deleteCard(cardId)
-        const res = await packsAPI.getCards()
-        dispatch(setCardsAC(res))
+        dispatch(rerenderCardsAC())
     } catch (e) {
         handleError(e, dispatch)
     } finally {
@@ -103,8 +173,7 @@ export const updateCardTC = (data: TAddNewCardData): AppThunk => async dispatch 
     dispatch(setLoaderAC(true))
     try {
         await packsAPI.updateCard(data)
-        const res = await packsAPI.getCards()
-        dispatch(setCardsAC(res))
+        dispatch(rerenderCardsAC())
     } catch (e) {
         handleError(e, dispatch)
     } finally {

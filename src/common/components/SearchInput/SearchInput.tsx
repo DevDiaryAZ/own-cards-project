@@ -9,6 +9,7 @@ type SearchInputPropsType = Omit<DefaultInputPropsType, 'type'> & {
     onEnter?: () => void
     error?: ReactNode
     spanClassName?: string
+    value: string
 } & {
     onDebouncedChange?: (value: string) => void
 }
@@ -17,6 +18,7 @@ export const SearchInput: React.FC<SearchInputPropsType> = (
     {
         onChangeText,
         onDebouncedChange,
+        value,
 
         ...restProps // все остальные пропсы попадут в объект restProps
     }
@@ -44,6 +46,8 @@ export const SearchInput: React.FC<SearchInputPropsType> = (
     }
 
     return (
-        <TextField id="outlined-basic" onChange={onChangeTextCallback}/>
+        <TextField id="outlined-basic" onChange={onChangeTextCallback} value={value}     inputProps={{
+            autoComplete: 'new-password',
+        }}/>
     )
 }

@@ -34,7 +34,8 @@ export const userReducer = (state: InitialStateType = initialState, action: User
                 ...state,
                 _id: action.payload.data._id,
                 email: action.payload.data.email,
-                name: action.payload.data.name
+                name: action.payload.data.name,
+                avatar: action.payload.data.avatar ,
             }
         case 'CHANGE_NAME':
             return {...state, name: action.payload.newName}

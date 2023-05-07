@@ -22,3 +22,7 @@
     border-radius: 30px;
     outline: inherit;
 }
+
+.active {
+    background: green;
+}
