@@ -21,10 +21,11 @@ type TBoxProps = {
     cursor: Property.Cursor;
     position: Property.Position;
     disabled: boolean;
+    display: Property.Display;
 };
 
 export const Box = styled.div<Partial<TBoxProps>>((props) => ({
-    display: "flex",
+    display: props.display && "flex",
     flexDirection: props.flexDirection,
     alignItems: props.alignItems,
     justifyContent: props.justifyContent,
@@ -44,6 +45,7 @@ export const Box = styled.div<Partial<TBoxProps>>((props) => ({
     flexGrow: props.flexGrow,
     position: props.position,
     cursor: props.cursor,
+    gap: props.gap,
     ...props.cursor === "pointer" && {
         "&:hover": {
             opacity: 0.8,

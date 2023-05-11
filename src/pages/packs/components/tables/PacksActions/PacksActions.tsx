@@ -5,6 +5,7 @@ import teachImg from 'common/assets/pictures/teacher.svg'
 import {deletePackTC, updatePackTC} from "store/packsReducer";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
 import {selectUserId} from "store/selectors/selectUser";
+import {Box} from "common/components/Box/Box";
 
 type PropsType = {
     packId: string
@@ -38,8 +39,7 @@ export const PacksActions = ({packId, packUserId, cardsCount}: PropsType) => {
     }
 
     return (
-        <>
-
+        <Box gap={"10px"}>
             <button disabled={!cardsCount} onClick={handlerTeachPack} style={{opacity: !!cardsCount ? '1' : '0.3'}}>
                 <img src={teachImg} alt={"teach"}/>
             </button>
@@ -52,6 +52,6 @@ export const PacksActions = ({packId, packUserId, cardsCount}: PropsType) => {
                     <img src={deleteImg} alt={"delete"}/>
                 </button>
             </>)}
-        </>
+        </Box>
     );
 };

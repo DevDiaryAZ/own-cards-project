@@ -1,13 +1,9 @@
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableSortLabel from '@mui/material/TableSortLabel';
 import {useAppSelector} from "hooks/hooks";
 import {selectCardPacks, selectSortPacks} from "store/selectors/selectPacks";
-import {Table} from "@mui/material";
 import {PacksActions} from "pages/packs/components/tables/PacksActions/PacksActions";
 import s from "pages/packs/Packs.module.css";
 import {NavLink} from "react-router-dom";
@@ -16,8 +12,12 @@ import SortIcon from '@mui/icons-material/Sort';
 
 import {rerenderPacksAC, setSortPacksAC} from "store/packsReducer";
 import {useSort} from "hooks/useSort";
-import {selectCardsPackUserId} from "store/selectors/selectCards";
 import {selectUserId} from "store/selectors/selectUser";
+import {
+    STable,
+    STableContainer,
+    STableHead,
+} from "pages/packs/components/tables/PacksTable/styles";
 
 const TABLE_HEAD_DATA = [
     {
@@ -50,9 +50,9 @@ export const PacksTable = () => {
         <div className={s.tableContainer}>
             {!cardPacks.length ? <NotFoundPacks
                 messageError={'Packs with the entered name were not found. Change the query parameters'}/> : (
-                <TableContainer component={Paper}>
-                    <Table size="small" aria-label="a dense table">
-                        <TableHead>
+                <STableContainer>
+                    <STable size="small" aria-label="a dense table">
+                        <STableHead>
                             <TableRow>
                                 {TABLE_HEAD_DATA.map(
                                     ({name, sortType}) => <TableCell key={'TableHead-' + name}><TableSortLabel
@@ -62,11 +62,11 @@ export const PacksTable = () => {
                                 )}
                                 <TableCell>Actions</TableCell>
                             </TableRow>
-                        </TableHead>
+                        </STableHead>
                         <TableBody>
                             {cardPacks.map((pack) => (
                                 <TableRow key={pack._id}>
-                                    <TableCell component="th" scope="row" sx={{
+                                    <TableCell component="td" scope="row" sx={{
                                         maxWidth: '300px',
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
@@ -91,8 +91,8 @@ export const PacksTable = () => {
                                 </TableRow>
                             ))}
                         </TableBody>
-                    </Table>
-                </TableContainer>)
+                    </STable>
+                </STableContainer>)
             }
         </div>
     );

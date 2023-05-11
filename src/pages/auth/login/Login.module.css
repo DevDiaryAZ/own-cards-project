@@ -1,12 +1,26 @@
 .login {
     width: 413px;
-    height: 552px;
-    margin: auto;
+    height-min: 552px;
+    /*margin: auto;*/
 
-    background: #ffffff;
-    border-radius: 2px;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+    /*background: #ffffff;*/
+    /*border-radius: 2px;*/
+    /*box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);*/
+    /*margin-top: 50px;*/
+
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10vh auto;
+    border-radius: 20px;
+    padding: 35px 25px;
+    gap: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 2px, rgba(0, 0, 0, 0.1) -1px -1px 2px;
+    max-width: 380px;
+    position: relative;
+    color: rgb(0, 0, 0);
 }
 
 .login h2 {
@@ -23,8 +37,8 @@
 
 .login form {
     max-width: 347px;
+    width: 100%;
     margin-top: 31px;
-    padding-left: 33px;
 
     text-align: left;
 }

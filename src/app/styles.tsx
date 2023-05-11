@@ -6,7 +6,7 @@ export const SAppWrapper = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primaryLightest};
   min-height: 100vh;
-  max-height: 100vh;
+  max-height: initial;
   padding: 15px;
   color: ${({theme}) => theme.colors.textOnSecondary};
   transition: 0.2s;

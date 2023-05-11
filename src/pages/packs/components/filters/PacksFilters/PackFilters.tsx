@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react";
-import s from "pages/packs/Packs.module.css";
 import {Button} from "common/components/Button/Button";
 import {CardRange} from "pages/packs/components/filters/CardRange/CardRange";
-import removeFilterImg from "common/assets/pictures/remove-filter.svg";
 import {SearchInput} from "common/components/SearchInput/SearchInput";
 import {getPacksTC, setIsShowMyPacksAC, setSortPacksAC} from "store/packsReducer";
 import {useAppDispatch, useAppSelector} from "hooks/hooks";
@@ -14,6 +12,10 @@ import {
 } from "store/selectors/selectPacks";
 import {selectUserId} from "store/selectors/selectUser";
 import useDebouncedEffect from 'use-debounced-effect';
+import SearchIcon from "common/assets/pictures/SearchIcon";
+import {Box} from "common/components/Box/Box";
+import FilterIcon from "common/assets/pictures/FilterIcon";
+import IconButton from "common/components/IconButton/IconButton";
 
 export const PackFilters = () => {
 
@@ -100,32 +102,36 @@ export const PackFilters = () => {
     )
 
     return (
-        <div className={s.filtersContainer}>
-            <div className={s.filtersItem}>
-                <div className={s.filtersTitle}>Search</div>
-                <SearchInput onDebouncedChange={onDebouncedSearchInput} value={currentInputText}
-                             onChangeText={setCurrentInputText}/>
-            </div>
+        // <div className={s.filtersContainer}>
+        <Box alignItems={"flex-end"} justifyContent={"space-between"} gap={"20px"} margin={"40px 0"}>
+            <Box alignItems={"center"} width={"100%"} maxWidth={"40%"}>
+                <SearchInput onDebouncedChange={onDebouncedSearchInput}
+                             value={currentInputText}
+                             onChangeText={setCurrentInputText}
+                             leftIcon={<SearchIcon/>}
+                             placeholder={"Search by name"}
+                />
+            </Box>
 
-            <div className={s.filtersItem}>
-                <div className={s.filtersTitle}>Show packs cards</div>
-                <div className={s.filtersBtnContainer}>
+            <Box alignItems={"center"} gap={"10px"}>
                     <Button label={"My packs"} onClick={() => handlerGetAllOrMyPacks('my')}
-                            isNoActive={!isShowMyPacks}/>
-                    <Button label={"All packs"} onClick={()=>handlerGetAllOrMyPacks()}
-                            isNoActive={isShowMyPacks}
-                    />
-                </div>
-            </div>
+                            isNoActive={!isShowMyPacks} padding={"11px 10px"}/>
+                    <Button label={"All packs"} onClick={() => handlerGetAllOrMyPacks()}
+                            isNoActive={isShowMyPacks} padding={"11px 10px"}/>
+            </Box>
 
-            <div className={s.filtersItem}>
+            <Box alignItems={"center"} flexDirection={"column"} gap={"10px 20px"}>
                 <CardRange onChange={handlerOnchangeCardRange} value={currentMinMaxCount} max={maxCardsCount}
                            min={minCardsCount}/>
-            </div>
+            </Box>
 
-            <div className={s.filtersItem}>
-                <button onClick={handlerRemoveFilters}><img src={removeFilterImg} alt="remove-filters"/></button>
-            </div>
-        </div>
+            <IconButton
+                onClick={handlerRemoveFilters}
+                icon={<FilterIcon />}
+                title={"Filter"}
+                isLightest
+            />
+        </Box>
+        // </div>
     );
 };

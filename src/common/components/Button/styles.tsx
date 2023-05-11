@@ -21,6 +21,7 @@ interface TSButton {
     isLoading?: boolean
     severity?: "success" | "neutral"
     isNoActive?: boolean
+    padding?: string
 }
 
 export const SButton = styled.button<TSButton>`
@@ -28,9 +29,9 @@ export const SButton = styled.button<TSButton>`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  padding: 8px 15px;
+  padding: ${(props) => props.padding || "8px 15px"};
   border-radius: 20px;
-  background-color: ${(props) => props.backgroundColor || props.theme.colors.primary};
+  background-color: ${(props) => props.backgroundColor || props.theme.colors.button.success};
   color: #fff;
   cursor: pointer;
   transition: 0.2s;
@@ -89,7 +90,10 @@ export const SButton = styled.button<TSButton>`
   `}
 
   ${(props) => props.isNoActive === true && css`
-    background-color: ${({theme}) => theme.colors.button["neutral"]};
+    background-color: ${({theme}) => theme.colors.secondaryLight};
+    border: ${({theme}) => `1px solid ${theme.colors.button.success}}`};
+    opacity: 0.80;
+    color: ${({theme}) => theme.colors.button.success};
   `}
 
   ${({severity, withShadow, theme}) => severity && css`

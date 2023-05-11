@@ -1,18 +1,21 @@
 import styled, { css } from "styled-components";
-import { Property } from "csstype";
+import { Property} from "csstype";
 
 interface TSTextProps {
-    isEllipsis?: boolean;
-    opacity?: string | number;
-    fontWeight?: Property.FontWeight;
-    fontSize?: Property.FontSize;
-    margin?: string;
-    isLink?: boolean;
-    textAlign?: Property.TextAlign;
-    lineHeight?: Property.LineHeight;
-    lineClamp?: Property.LineClamp;
-    maxWidth?: Property.MaxWidth;
-    whiteSpace?: Property.WhiteSpace;
+    isEllipsis?: boolean
+    opacity?: string | number
+    fontWeight?: Property.FontWeight
+    fontSize?: Property.FontSize
+    margin?: string
+    isLink?: boolean
+    textAlign?: Property.TextAlign
+    lineHeight?: Property.LineHeight
+    lineClamp?: Property.LineClamp
+    maxWidth?: Property.MaxWidth
+    whiteSpace?: Property.WhiteSpace
+    alignItems?:Property.AlignItems
+    display?:Property.Display
+    greyColor?:boolean
 }
 
 export const SText = styled.span<TSTextProps>(
@@ -25,6 +28,8 @@ export const SText = styled.span<TSTextProps>(
         line-height: ${props.lineHeight};
         text-align: ${props.textAlign};
         white-space: ${props.whiteSpace};
+        align-items: ${props.alignItems};
+        display: ${props.display};
         ${props.lineClamp &&
     css`
             display: -webkit-box;
@@ -49,5 +54,11 @@ export const SText = styled.span<TSTextProps>(
                 text-decoration: none;
             }
         `}
-    `
-);
+
+        ${props.greyColor &&
+        css`
+          color: ${({theme}) => theme.colors.button.textOnSecondary};
+        `}
+    
+   
+`);

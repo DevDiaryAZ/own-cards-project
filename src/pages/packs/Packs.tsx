@@ -16,6 +16,7 @@ import {selectUserId} from "store/selectors/selectUser";
 import {selectIsAuth} from "store/selectors/selectAuth";
 import {STitle} from "common/components/Text/STitle";
 import {AddIcon} from "common/assets/pictures/AddIcon";
+import {Box} from "common/components/Box/Box";
 
 export const Packs = () => {
 
@@ -78,10 +79,13 @@ export const Packs = () => {
 
             <PacksTable/>
 
-            <CustomPagination page={page}
-                              itemsCountForPage={pageCount}
-                              totalCount={cardPacksTotalCount}
-                              onChange={onChangePage}/>
+            <Box margin={"35px 0"}>
+                <CustomPagination page={page}
+                                  itemsCountForPage={pageCount}
+                                  totalCount={cardPacksTotalCount}
+                                  onChange={onChangePage}/>
+            </Box>
+
         </div>
     );
 };

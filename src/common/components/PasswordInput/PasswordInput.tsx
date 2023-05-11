@@ -31,6 +31,9 @@ export const PasswordInput = forwardRef(({...props}: PropsType, ref) => {
                 sx={{
                     width: '100%'
                 }}
+                inputProps={{
+                    autoComplete: 'new-password',
+                }}
             />
 
             {/* eye logic*/}

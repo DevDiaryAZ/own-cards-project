@@ -3,7 +3,7 @@ export const baseTheme = {
         //#5d3571 - color
         //#fdbfae - background
         //#f4e9e9
-        primaryAlpha01: "rgba(115,152,206,0.1)",
+        primaryAlpha01: "rgba(115,152,206,0.2)",
         primaryLightest: "#ececec",
         // primaryLightest: "#f4e9e9",
         // primaryLighter: "#fde9e2",
@@ -23,6 +23,7 @@ export const baseTheme = {
             notification: "#608ab4",
         },
         input: {
+            background: "rgb(255, 255, 255)",
             default: "rgba(76,85,154,0.09)",
             onSecondary: "rgba(76,85,154,0.09)",
         },

@@ -20,8 +20,8 @@
 .numberOfCards_minValue, .numberOfCards_maxValue {
     width: 36px;
     height: 36px;
-    background: #FFFFFF;
-    border: 1px solid #D9D9D9;
+    /*background: #FFFFFF;*/
+    border: none;
     border-radius: 2px;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
@@ -32,6 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .numberOfCards_minValue {

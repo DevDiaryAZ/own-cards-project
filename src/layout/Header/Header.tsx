@@ -24,9 +24,9 @@ export const Header = () => {
 
         <SHeaderLogo><NavLink to={PATH.PACKS}>LEARN SIMPLE</NavLink></SHeaderLogo>
 
-        {!isAuth && <NavLink to={PATH.REGISTRATION}>Registration</NavLink>}
+        {!isAuth && <NavLink to={PATH.REGISTRATION} style={{whiteSpace: "nowrap"}}>Sign Up</NavLink>}
 
-        {!isAuth && <NavLink to={PATH.LOGIN}>Sing In</NavLink>}
+        {/*{!isAuth && <NavLink to={PATH.LOGIN}>Sing In</NavLink>}*/}
 
         {isAuth && <Box
             alignItems={"center"}

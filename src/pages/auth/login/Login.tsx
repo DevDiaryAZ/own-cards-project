@@ -11,6 +11,7 @@ import {PasswordInput} from "common/components/PasswordInput/PasswordInput";
 import {loginTC} from "store/authReducer";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {selectAuthError, selectIsAuth} from "store/selectors/selectAuth";
+import {Box} from "common/components/Box/Box";
 
 export const emailRegex = /^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i;
 
@@ -23,18 +24,8 @@ type FormData = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
 
     const authError = useAppSelector(selectAuthError)
-    const isAuth = useAppSelector(selectIsAuth)
-
-    // useEffect(() => {
-    //     debugger;
-    //     console.log('login useeffect')
-    //     if (isAuth) {
-    //         navigate(PATH.PACKS);
-    //     }
-    // }, [isAuth, navigate])
 
     const {
         handleSubmit,
@@ -78,6 +69,7 @@ export const Login = () => {
                     required: true,
                     minLength: 7,
                 }}
+
                 render={({field}) =>
                     <PasswordInput
                         {...field}
@@ -96,7 +88,10 @@ export const Login = () => {
                 }
             />
 
-            <NavLink to={PATH.FORGOT_PASSWORD}>Forgot Password?</NavLink>
+
+            <Box display={"block"}>
+                <NavLink to={PATH.FORGOT_PASSWORD}>Forgot Password?</NavLink>
+            </Box>
 
             <input className={s.login_button} type="submit"/>
 

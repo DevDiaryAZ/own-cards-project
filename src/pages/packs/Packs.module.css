@@ -20,19 +20,19 @@
 
 /*filtersContainer*/
 
-.filtersContainer {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin: 40px 0;
-}
+/*.filtersContainer {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    gap: 20px;*/
+/*    margin: 40px 0;*/
+/*}*/
 
-.filtersItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
+/*.filtersItem {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    width: 100%;*/
+/*}*/
 
 .filtersBtnContainer{
     display: flex;

@@ -18,6 +18,7 @@ type TButtonProps = TDefaultHTMLButton & {
     withBorder?: boolean
     severity?: "success" | "neutral"
     isNoActive?: boolean
+    padding?: string
 };
 
 export const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
@@ -37,6 +38,7 @@ export const Button: FC<TButtonProps> = ({ isDisabled, ...props }) => {
             withBorder={props.withBorder}
             severity={props.severity}
             isNoActive={props.isNoActive}
+            padding={props.padding}
         >
             {props.icon}
             {props.label}

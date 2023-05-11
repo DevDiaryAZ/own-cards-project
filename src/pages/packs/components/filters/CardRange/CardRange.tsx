@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box'
 import {Slider} from "@mui/material"
 import s from './CardRange.module.css'
+import styled from "styled-components";
+import {SText} from "common/components/Text/SText";
 
 type PropsType = {
     max: number
@@ -9,14 +11,23 @@ type PropsType = {
     onChange: (event: Event, newValue: number | number[]) => void
 }
 
+const SSlider = styled(Slider)`
+  &.MuiSlider-root {
+    color: ${({theme}) => theme.colors.button.success};
+    outline: none;
+    box-shadow: navajowhite;
+  }
+`
+
 export const CardRange = ({max, min, value, onChange}: PropsType) => {
     return (
-        <div className={s.numberOfCards}>
-            <h3>Number of cards</h3>
+        <>
+            <SText fontWeight={"600"} fontSize={"16px"} whiteSpace={"nowrap"} greyColor>Number of cards</SText>
             <div className={s.numberOfCards_wrapper}>
-                <div className={s.numberOfCards_minValue}>{value[0]}</div>
+                <SText margin={"0 20px"} fontWeight={"600"} fontSize={"16px"} whiteSpace={"nowrap"}
+                       greyColor  display={"flex"}  alignItems={"center"}>{value[0]}</SText>
                 <Box sx={{width: 155}}>
-                    <Slider
+                    <SSlider
                         getAriaLabel={() => 'Number of cards'}
                         min={min}
                         max={max ? max : 100}
@@ -24,8 +35,10 @@ export const CardRange = ({max, min, value, onChange}: PropsType) => {
                         onChange={onChange}
                     />
                 </Box>
-                <div className={s.numberOfCards_maxValue}>{value[1]}</div>
+                <SText display={"flex"} alignItems={"center"} margin={"0 20px"} fontWeight={"600"} fontSize={"16px"} whiteSpace={"nowrap"}
+                       greyColor>{value[1]}</SText>
             </div>
-        </div>
+        </>
     )
 }
+
