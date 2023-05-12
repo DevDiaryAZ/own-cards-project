@@ -1,22 +1,18 @@
 .wrapper {
-    margin: 0 auto;
-    width: 80%;
+  margin: 0 auto;
+  width: 80%;
 }
 
-.visuallyHidden{
-
+.visuallyHidden {
 }
-
-
 
 /*titleContainer*/
 
 .titleContainer {
-    display: flex;
-    justify-content: space-between;
-    margin: 40px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0;
 }
-
 
 /*filtersContainer*/
 
@@ -34,7 +30,7 @@
 /*    width: 100%;*/
 /*}*/
 
-.filtersBtnContainer{
-    display: flex;
-    gap:10px;
+.filtersBtnContainer {
+  display: flex;
+  gap: 10px;
 }

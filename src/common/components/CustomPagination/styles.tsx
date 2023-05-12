@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {Pagination} from "@mui/material";
+import styled from 'styled-components'
+import { Pagination } from '@mui/material'
 
 export const SCustomPagination = styled(Pagination)`
   display: flex;
@@ -26,7 +26,7 @@ export const SCustomPagination = styled(Pagination)`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    color: ${(props) => props.theme.colors.textOnSecondary};
+    color: ${props => props.theme.colors.textOnSecondary};
     cursor: pointer;
 
     &:hover {
@@ -40,14 +40,14 @@ export const SCustomPagination = styled(Pagination)`
   }
 
   button.Mui-selected {
-    background-color: ${({theme}) => theme.colors.button.success};
+    background-color: ${({ theme }) => theme.colors.button.success};
     pointer-events: none;
     border-radius: 50%;
-    color: ${({theme}) => theme.colors.secondaryLight};
+    color: ${({ theme }) => theme.colors.secondaryLight};
 
     a {
       background-color: transparent;
-      color: ${({theme}) => theme.colors.textOnPrimary};
+      color: ${({ theme }) => theme.colors.textOnPrimary};
     }
   }
 
@@ -63,4 +63,4 @@ export const SCustomPagination = styled(Pagination)`
 
   .break {
   }
-`;
+`

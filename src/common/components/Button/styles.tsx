@@ -1,4 +1,4 @@
-import styled, {css, keyframes} from "styled-components";
+import styled, { css, keyframes } from 'styled-components'
 
 const buttonLoad = keyframes`
   0% {
@@ -10,18 +10,18 @@ const buttonLoad = keyframes`
   100% {
     opacity: 0.7;
   }
-`;
+`
 
 interface TSButton {
-    backgroundColor?: string
-    size?: "lg" | "sm"
-    hasIcon?: boolean
-    withShadow?: boolean
-    withBorder?: boolean
-    isLoading?: boolean
-    severity?: "success" | "neutral"
-    isNoActive?: boolean
-    padding?: string
+  backgroundColor?: string
+  size?: 'lg' | 'sm'
+  hasIcon?: boolean
+  withShadow?: boolean
+  withBorder?: boolean
+  isLoading?: boolean
+  severity?: 'success' | 'neutral'
+  isNoActive?: boolean
+  padding?: string
 }
 
 export const SButton = styled.button<TSButton>`
@@ -29,9 +29,9 @@ export const SButton = styled.button<TSButton>`
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-  padding: ${(props) => props.padding || "8px 15px"};
+  padding: ${props => props.padding || '8px 15px'};
   border-radius: 20px;
-  background-color: ${(props) => props.backgroundColor || props.theme.colors.button.success};
+  background-color: ${props => props.backgroundColor || props.theme.colors.button.success};
   color: #fff;
   cursor: pointer;
   transition: 0.2s;
@@ -44,80 +44,97 @@ export const SButton = styled.button<TSButton>`
     box-shadow: inset 0 0 30px 30px rgba(255, 255, 255, 0);
   }
 
-  ${(props) => props.withShadow && css`
-    box-shadow: 0 4px 18px ${({theme}) => theme.colors.button.successShadow};
-    padding: 10px 30px;
-    font-size: 16px;
-  `};
+  ${props =>
+    props.withShadow &&
+    css`
+      box-shadow: 0 4px 18px ${({ theme }) => theme.colors.button.successShadow};
+      padding: 10px 30px;
+      font-size: 16px;
+    `};
 
-  ${(props) => props.withBorder && css`
-    font-size: 16px;
-    background-color: transparent;
-    box-shadow: none;
-    padding: 8px 20px !important;
-    color: ${({theme}) => theme.colors.button.error};
-    border: 2px solid ${({theme}) => theme.colors.button.error};
-    transition: 0.2s;
-
-    svg path {
+  ${props =>
+    props.withBorder &&
+    css`
+      font-size: 16px;
+      background-color: transparent;
+      box-shadow: none;
+      padding: 8px 20px !important;
+      color: ${({ theme }) => theme.colors.button.error};
+      border: 2px solid ${({ theme }) => theme.colors.button.error};
       transition: 0.2s;
-      stroke: ${({theme}) => theme.colors.button.error};
-    }
-
-    svg {
-      background-color: transparent !important;
-    }
-
-    &:hover {
-      background-color: ${({theme}) => theme.colors.button.error};
-      color: #fff;
 
       svg path {
-        stroke: #fff;
+        transition: 0.2s;
+        stroke: ${({ theme }) => theme.colors.button.error};
       }
-    }
-  `}
 
-  ${(props) => props.disabled && css`
-    opacity: 0.4;
-    pointer-events: none;
-  `}
+      svg {
+        background-color: transparent !important;
+      }
 
-  ${(props) => props.size === "lg" && css`
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-  `}
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.button.error};
+        color: #fff;
 
-  ${(props) => props.isNoActive === true && css`
-    background-color: ${({theme}) => theme.colors.secondaryLight};
-    border: ${({theme}) => `1px solid ${theme.colors.button.success}}`};
-    opacity: 0.80;
-    color: ${({theme}) => theme.colors.button.success};
-  `}
-
-  ${({severity, withShadow, theme}) => severity && css`
-    background-color: ${theme.colors.button[severity || "success"]};
-    ${withShadow && css`
-      box-shadow: 0 4px 18px ${theme.colors.button[severity + "Shadow" || "successShadow"]};
+        svg path {
+          stroke: #fff;
+        }
+      }
     `}
-  `}
 
-  ${(props) => props.hasIcon && css`
-    gap: 10px;
-    padding: 10px 15px;
+  ${props =>
+    props.disabled &&
+    css`
+      opacity: 0.4;
+      pointer-events: none;
+    `}
 
-    svg {
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-    }
-  `}
+  ${props =>
+    props.size === 'lg' &&
+    css`
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+    `}
 
-  ${(props) => props.isLoading && css`
-    animation: 2s ${buttonLoad} ease-out infinite;
-    pointer-events: none;
-    opacity: 1;
-  `}
-`;
+  ${props =>
+    props.isNoActive === true &&
+    css`
+      background-color: ${({ theme }) => theme.colors.secondaryLight};
+      border: ${({ theme }) => `1px solid ${theme.colors.button.success}}`};
+      opacity: 0.8;
+      color: ${({ theme }) => theme.colors.button.success};
+    `}
+
+  ${({ severity, withShadow, theme }) =>
+    severity &&
+    css`
+      background-color: ${theme.colors.button[severity || 'success']};
+      ${withShadow &&
+      css`
+        box-shadow: 0 4px 18px ${theme.colors.button[severity + 'Shadow' || 'successShadow']};
+      `}
+    `}
+
+  ${props =>
+    props.hasIcon &&
+    css`
+      gap: 10px;
+      padding: 10px 15px;
+
+      svg {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+      }
+    `}
+
+  ${props =>
+    props.isLoading &&
+    css`
+      animation: 2s ${buttonLoad} ease-out infinite;
+      pointer-events: none;
+      opacity: 1;
+    `}
+`

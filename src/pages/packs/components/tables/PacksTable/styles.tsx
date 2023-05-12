@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import TableContainer from "@mui/material/TableContainer";
-import {Table} from "@mui/material";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
+import styled from 'styled-components'
+import TableContainer from '@mui/material/TableContainer'
+import { Table } from '@mui/material'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
 
 export const STableContainer = styled(TableContainer)`
   border-radius: 20px;
-  background-color: ${({theme}) => theme.colors.secondaryLight};
+  background-color: ${({ theme }) => theme.colors.secondaryLight};
 `
 
 export const STable = styled(Table)`
@@ -15,10 +15,11 @@ export const STable = styled(Table)`
   & tr {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 2fr 1fr;
-    border-bottom: 1px solid ${({theme}) => theme.colors.secondaryLightAlpha07};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.secondaryLightAlpha07};
   }
 
-  & th, & td  {
+  & th,
+  & td {
     padding: 12px 15px;
     max-width: 300px;
     overflow: hidden;
@@ -27,13 +28,13 @@ export const STable = styled(Table)`
     align-items: center;
     border: none;
   }
-  & tr td:first-child  {
+  & tr td:first-child {
     font-weight: 600;
   }
 `
 
 export const STableHead = styled(TableHead)`
-  background-color: ${({theme}) => theme.colors.secondaryLightAlpha07};
+  background-color: ${({ theme }) => theme.colors.secondaryLightAlpha07};
 
   & th {
     font-weight: 600;

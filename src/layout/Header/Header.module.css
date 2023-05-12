@@ -1,21 +1,21 @@
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    height: 60px;
-    padding: 0 70px;
+  height: 60px;
+  padding: 0 70px;
 
-    background-color: #fff;
-    box-shadow: 0 0 40px rgba(29, 33, 38, 0.1), 0 0 2px rgba(29, 33, 38, 0.1);
+  background-color: #fff;
+  box-shadow: 0 0 40px rgba(29, 33, 38, 0.1), 0 0 2px rgba(29, 33, 38, 0.1);
 }
 
-.headerProfileLink{
-    display: flex;
-    gap: 20px;
-    align-items: center;
+.headerProfileLink {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
 
-.headerProfileLink img{
-    width: 50px;
+.headerProfileLink img {
+  width: 50px;
 }

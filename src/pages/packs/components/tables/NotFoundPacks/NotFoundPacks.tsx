@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 type PropsType = {
-    messageError?: string
+  messageError?: string
 }
 
-export const NotFoundPacks = ({messageError}: PropsType) => {
-    return (
-        <>
-            NotFoundPacks
-            {messageError && <p>{messageError}</p>}
-        </>
-    );
-};
+export const NotFoundPacks = ({ messageError }: PropsType) => {
+  return (
+    <>
+      NotFoundPacks
+      {messageError && <p>{messageError}</p>}
+    </>
+  )
+}
